@@ -3,6 +3,7 @@ package org.saucedemo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.*;
 
 public class WebDriverFactory {
 
@@ -14,6 +15,9 @@ public class WebDriverFactory {
                 break;
             case "edge":
                 driver = new EdgeDriver();
+                break;
+            case "chrome":
+                driver = new ChromeDriver();
                 break;
             default:
                 throw new IllegalArgumentException("Browser not supported: " + browser);

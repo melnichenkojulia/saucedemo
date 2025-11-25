@@ -1,7 +1,9 @@
 package org.saucedemo;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
 
@@ -18,8 +20,16 @@ public class LoginPage extends BasePage {
         driver.findElement(usernameInput).sendKeys(username);
     }
 
+    private void clearInput(WebElement input) {
+        input.click();
+        int length = input.getAttribute("value").length();
+        for (int i = 0; i < length; i++) {
+            input.sendKeys(Keys.BACK_SPACE);
+        }
+    }
+
     public void clearUsername() {
-        driver.findElement(usernameInput).clear();
+        clearInput(driver.findElement(usernameInput));
     }
 
     public void setPassword(String password) {
@@ -27,7 +37,7 @@ public class LoginPage extends BasePage {
     }
 
     public void clearPassword() {
-        driver.findElement(passwordInput).clear();
+        clearInput(driver.findElement(passwordInput));
     }
 
     public void clickLogin() {
