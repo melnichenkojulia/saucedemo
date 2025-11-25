@@ -1,4 +1,4 @@
-package org.saucedemo;
+package org.saucedemo.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -7,10 +7,10 @@ import org.openqa.selenium.WebElement;
 
 public class LoginPage extends BasePage {
 
-    private By usernameInput = By.xpath("//input[@id='user-name']");
-    private By passwordInput = By.xpath("//input[@id='password']");
-    private By loginButton = By.xpath("//input[@id='login-button']");
-    private By errorMsg = By.xpath("//h3[@data-test='error']");
+    private final By usernameInput = By.xpath("//input[@id='user-name']");
+    private final By passwordInput = By.xpath("//input[@id='password']");
+    private final By loginButton = By.xpath("//input[@id='login-button']");
+    private final By errorMsg = By.xpath("//h3[@data-test='error']");
 
     public LoginPage(WebDriver driver) {
         super(driver);

@@ -2,16 +2,13 @@ package org.saucedemo.tests;
 
 import java.util.List;
 
-import org.saucedemo.LoginPage;
+import org.saucedemo.pages.LoginPage;
 import org.saucedemo.WebDriverFactory;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.lang.InterruptedException;
 
 import java.util.logging.Logger;
 import java.util.stream.Stream;
