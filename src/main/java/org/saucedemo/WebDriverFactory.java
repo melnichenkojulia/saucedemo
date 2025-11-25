@@ -1,26 +1,21 @@
 package org.saucedemo;
 
+import org.saucedemo.enums.Browser;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.*;
 
 public class WebDriverFactory {
 
-    public static WebDriver createDriver(String browser) {
+    public static WebDriver createDriver(Browser browser) {
         WebDriver driver;
-        switch (browser.toLowerCase()) {
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-            case "edge":
-                driver = new EdgeDriver();
-                break;
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            default:
-                throw new IllegalArgumentException("Browser not supported: " + browser);
+
+        switch (browser) {
+            case FIREFOX -> driver = new FirefoxDriver();
+            case EDGE -> driver = new EdgeDriver();
+            case CHROME -> driver = new ChromeDriver();
+            default -> throw new IllegalArgumentException("Browser not supported: " + browser);
         }
         driver.manage().window().maximize();
         return driver;

@@ -2,6 +2,7 @@ package org.saucedemo.tests;
 
 import java.util.List;
 
+import org.saucedemo.enums.Browser;
 import org.saucedemo.pages.LoginPage;
 import org.saucedemo.WebDriverFactory;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.saucedemo.enums.Browser.*;
 
 @Execution(ExecutionMode.CONCURRENT)
 public class LoginTests extends BaseTest {
@@ -23,9 +25,10 @@ public class LoginTests extends BaseTest {
     private final String baseUrl = "https://www.saucedemo.com/";
 
     static class TestData {
-        String id, username, password, expected, browser;
+        String id, username, password, expected;
+        Browser browser;
 
-        TestData(String id, String username, String password, String expected, String browser) {
+        TestData(String id, String username, String password, String expected, Browser browser) {
             this.id = id;
             this.username = username;
             this.password = password;
@@ -34,10 +37,10 @@ public class LoginTests extends BaseTest {
         }
     }
 
-    private static final List<String> BROWSERS = List.of("firefox", "edge", "chrome");
+    private static final List<Browser> browsers = List.of(FIREFOX, EDGE, CHROME);
 
     static Stream<TestData> testDataProvider() {
-        return BROWSERS.stream()
+        return browsers.stream()
                 .flatMap(browser -> Stream.of(
                         new TestData("uc1", "anyUser", "anyPassword", "Username is required", browser),
                         new TestData("uc2", "standard_user", "anyPassword", "Password is required", browser),

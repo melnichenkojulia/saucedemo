@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
-import org.saucedemo.WebDriverFactory;
 
 public class BaseTest {
     protected WebDriver driver;
