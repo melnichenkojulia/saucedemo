@@ -37,10 +37,8 @@ public class LoginTests extends BaseTest {
         }
     }
 
-    private static final List<Browser> browsers = List.of(FIREFOX, EDGE, CHROME);
-
     static Stream<TestData> testDataProvider() {
-        return browsers.stream()
+        return Stream.of(Browser.values())
                 .flatMap(browser -> Stream.of(
                         new TestData("uc1", "anyUser", "anyPassword", "Username is required", browser),
                         new TestData("uc2", "standard_user", "anyPassword", "Password is required", browser),
