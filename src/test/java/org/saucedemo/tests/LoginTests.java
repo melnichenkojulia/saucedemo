@@ -1,24 +1,17 @@
 package org.saucedemo.tests;
 
-import java.util.List;
-
 import org.saucedemo.enums.Browser;
 import org.saucedemo.pages.LoginPage;
 import org.saucedemo.WebDriverFactory;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.saucedemo.enums.Browser.*;
 
-@Execution(ExecutionMode.CONCURRENT)
 public class LoginTests extends BaseTest {
     private static final Logger log = Logger.getLogger(LoginTests.class.getName());
 
