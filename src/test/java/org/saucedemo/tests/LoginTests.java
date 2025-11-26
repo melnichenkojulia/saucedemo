@@ -21,22 +21,19 @@ public class LoginTests extends BaseTest {
     private final String baseUrl = "https://www.saucedemo.com/";
 
     static Stream<TestData> testDataProvider() {
-        return Stream.of(Browser.values())
-                .flatMap(browser -> Stream.of(
-                        new TestData("UC-1", UserFactory.invalidUser(), LoginMode.CLEAR_ALL, "Username is required", "Swag Labs", browser),
-                        new TestData("UC-2", UserFactory.userWithInvalidPassword(), LoginMode.CLEAR_PASSWORD, "Password is required", "Swag Labs", browser),
-                        new TestData("UC-3", UserFactory.validUser(), LoginMode.DEFAULT, null, "Swag Labs", browser)
-                ));
+        return Stream.of(
+                new TestData("UC-1", UserFactory.invalidUser(), LoginMode.CLEAR_ALL, "Username is required", "Swag Labs"),
+                new TestData("UC-2", UserFactory.userWithInvalidPassword(), LoginMode.CLEAR_PASSWORD, "Password is required", "Swag Labs"),
+                new TestData("UC-3", UserFactory.validUser(), LoginMode.DEFAULT, null, "Swag Labs")
+        );
     }
 
     @ParameterizedTest(name = "{0} on {3}")
     @MethodSource("testDataProvider")
     @DisplayName("Saucedemo Login Test Scenarios")
     public void runUC(TestData data) {
-        log.info("Running UC: " + data.id() + " with browser: " + data.browser().toString());
-        driver = WebDriverFactory.createDriver(data.browser());
-
-        LoginPage page = new LoginPage(driver);
+        log.info("Running UC: " + data.id());
+        LoginPage page = new LoginPage(this.driver);
         page.open(baseUrl);
         page.login(data.user(), data.loginMode());
 
