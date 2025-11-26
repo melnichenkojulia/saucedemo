@@ -3,11 +3,9 @@ package org.saucedemo.tests;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.saucedemo.enums.Browser;
 import org.saucedemo.enums.LoginMode;
 import org.saucedemo.factory.UserFactory;
 import org.saucedemo.pages.LoginPage;
-import org.saucedemo.factory.WebDriverFactory;
 import org.saucedemo.tests.dto.TestData;
 
 import java.util.logging.Logger;
@@ -16,7 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTests extends BaseTest {
-    private static final Logger log = Logger.getLogger(LoginTests.class.getName());;
+    private static final Logger log = Logger.getLogger(LoginTests.class.getName());
 
     static Stream<TestData> testDataProvider() {
         return Stream.of(
