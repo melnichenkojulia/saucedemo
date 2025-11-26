@@ -1,11 +1,14 @@
 package org.saucedemo.tests;
 
-import org.saucedemo.enums.Browser;
-import org.saucedemo.pages.LoginPage;
-import org.saucedemo.WebDriverFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.saucedemo.enums.Browser;
+import org.saucedemo.enums.LoginMode;
+import org.saucedemo.factory.UserFactory;
+import org.saucedemo.pages.LoginPage;
+import org.saucedemo.factory.WebDriverFactory;
+import org.saucedemo.tests.dto.TestData;
 
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -17,64 +20,31 @@ public class LoginTests extends BaseTest {
 
     private final String baseUrl = "https://www.saucedemo.com/";
 
-    static class TestData {
-        String id, username, password, expected;
-        Browser browser;
-
-        TestData(String id, String username, String password, String expected, Browser browser) {
-            this.id = id;
-            this.username = username;
-            this.password = password;
-            this.expected = expected;
-            this.browser = browser;
-        }
-    }
-
     static Stream<TestData> testDataProvider() {
         return Stream.of(Browser.values())
                 .flatMap(browser -> Stream.of(
-                        new TestData("uc1", "anyUser", "anyPassword", "Username is required", browser),
-                        new TestData("uc2", "standard_user", "anyPassword", "Password is required", browser),
-                        new TestData("uc3", "standard_user", "secret_sauce", "Swag Labs", browser)
+                        new TestData("UC-1", UserFactory.invalidUser(), LoginMode.CLEAR_ALL, "Username is required", "Swag Labs", browser),
+                        new TestData("UC-2", UserFactory.userWithInvalidPassword(), LoginMode.CLEAR_PASSWORD, "Password is required", "Swag Labs", browser),
+                        new TestData("UC-3", UserFactory.validUser(), LoginMode.DEFAULT, null, "Swag Labs", browser)
                 ));
     }
 
-
-    @ParameterizedTest(name = "{0} on {4}")
+    @ParameterizedTest(name = "{0} on {3}")
     @MethodSource("testDataProvider")
     @DisplayName("Saucedemo Login Test Scenarios")
     public void runUC(TestData data) {
-        log.info("Running UC: " + data.id);
-        driver = WebDriverFactory.createDriver(data.browser);
+        log.info("Running UC: " + data.id() + " with browser: " + data.browser().toString());
+        driver = WebDriverFactory.createDriver(data.browser());
 
         LoginPage page = new LoginPage(driver);
         page.open(baseUrl);
+        page.login(data.user(), data.loginMode());
 
-        switch (data.id) {
-            case "uc1":
-                page.setUsername(data.username);
-                page.setPassword(data.password);
-                page.clearUsername();
-                page.clearPassword();
-                page.clickLogin();
-                assertTrue(page.getErrorText().contains(data.expected), "Expected error " + data.expected + ", but got " + page.getErrorText());
-                break;
-
-            case "uc2":
-                page.setUsername(data.username);
-                page.setPassword(data.password);
-                page.clearPassword();
-                page.clickLogin();
-                assertTrue(page.getErrorText().contains(data.expected), "Expected error " + data.expected + ", but got " + page.getErrorText());
-                break;
-
-            case "uc3":
-                page.setUsername(data.username);
-                page.setPassword(data.password);
-                page.clickLogin();
-                assertEquals(data.expected, driver.getTitle());
-                break;
+        if (data.error() != null) {
+            assertTrue(page.getErrorMessage().contains(data.error()));
         }
+
+        assertEquals(data.title(), page.getTitle());
     }
 
 }

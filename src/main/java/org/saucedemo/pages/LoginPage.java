@@ -1,9 +1,9 @@
 package org.saucedemo.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.saucedemo.enums.LoginMode;
+import org.saucedemo.dto.UserDTO;
 
 public class LoginPage extends BasePage {
 
@@ -16,35 +16,19 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
-    public void setUsername(String username) {
-        driver.findElement(usernameInput).sendKeys(username);
-    }
-
-    private void clearInput(WebElement input) {
-        input.click();
-        int length = input.getAttribute("value").length();
-        for (int i = 0; i < length; i++) {
-            input.sendKeys(Keys.BACK_SPACE);
+    public void login(UserDTO user, LoginMode loginMode) {
+        type(usernameInput, user.username());
+        type(passwordInput, user.password());
+        if (loginMode == LoginMode.CLEAR_PASSWORD) {
+            clear(passwordInput);
+        } else if (loginMode == LoginMode.CLEAR_ALL) {
+            clear(usernameInput);
+            clear(passwordInput);
         }
+        click(loginButton);
     }
 
-    public void clearUsername() {
-        clearInput(driver.findElement(usernameInput));
-    }
-
-    public void setPassword(String password) {
-        driver.findElement(passwordInput).sendKeys(password);
-    }
-
-    public void clearPassword() {
-        clearInput(driver.findElement(passwordInput));
-    }
-
-    public void clickLogin() {
-        driver.findElement(loginButton).click();
-    }
-
-    public String getErrorText() {
-        return driver.findElement(errorMsg).getText();
+    public String getErrorMessage() {
+        return find(errorMsg).getText();
     }
 }
