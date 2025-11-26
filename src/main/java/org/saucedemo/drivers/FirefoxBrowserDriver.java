@@ -1,4 +1,4 @@
-package org.saucedemo.browsers;
+package org.saucedemo.drivers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;

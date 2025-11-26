@@ -1,6 +1,6 @@
 package org.saucedemo.factory;
 
-import org.saucedemo.browsers.*;
+import org.saucedemo.drivers.*;
 import org.saucedemo.enums.Browser;
 import org.openqa.selenium.WebDriver;
 

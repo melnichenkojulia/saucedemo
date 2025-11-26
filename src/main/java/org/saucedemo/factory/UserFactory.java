@@ -15,7 +15,4 @@ public class UserFactory {
         return new UserDTO("standard_user", "anyPassword");
     }
 
-
 }
-
-

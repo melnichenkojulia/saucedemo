@@ -4,8 +4,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.saucedemo.ConfigReader;
+import org.saucedemo.DriverManager;
 import org.saucedemo.enums.Browser;
-import org.saucedemo.factory.WebDriverFactory;
 
 public abstract class BaseTest {
     protected WebDriver driver;
@@ -13,15 +13,12 @@ public abstract class BaseTest {
 
     @BeforeEach
     void setUp() {
-        Browser browser = Browser.valueOf(ConfigReader.get("browser"));
-        driver = WebDriverFactory.createDriver(browser);
+        driver = DriverManager.getDriver(Browser.valueOf(ConfigReader.get("browser")));
         baseUrl = ConfigReader.get("baseUrl");
     }
 
     @AfterEach
     void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.quitDriver();
     }
 }
