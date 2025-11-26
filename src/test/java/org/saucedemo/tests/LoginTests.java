@@ -16,9 +16,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTests extends BaseTest {
-    private static final Logger log = Logger.getLogger(LoginTests.class.getName());
-
-    private final String baseUrl = "https://www.saucedemo.com/";
+    private static final Logger log = Logger.getLogger(LoginTests.class.getName());;
 
     static Stream<TestData> testDataProvider() {
         return Stream.of(

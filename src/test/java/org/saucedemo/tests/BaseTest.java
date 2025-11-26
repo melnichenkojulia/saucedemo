@@ -9,11 +9,13 @@ import org.saucedemo.factory.WebDriverFactory;
 
 public abstract class BaseTest {
     protected WebDriver driver;
+    protected String baseUrl;
 
     @BeforeEach
     void setUp() {
         Browser browser = Browser.valueOf(ConfigReader.get("browser"));
         driver = WebDriverFactory.createDriver(browser);
+        baseUrl = ConfigReader.get("baseUrl");
     }
 
     @AfterEach
